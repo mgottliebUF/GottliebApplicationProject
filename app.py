@@ -1,36 +1,44 @@
 #!/usr/bin/env python3
 
-from flask import Flask, request
+from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
 
-@app.route("/")
+# Define a simple HTML form with fields for multiple inputs.
+html_form = """
+<form action="/submit" method="post">
+    {% for i in range(rows) %}
+    <div>
+        <label for="exercise{{i}}">Exercise:</label>
+        <input type="text" name="exercise{{i}}" required>
+        
+        <label for="weight{{i}}">Weight:</label>
+        <input type="number" name="weight{{i}}" step="0.1" required>
+        
+        <label for="reps{{i}}">Reps:</label>
+        <input type="number" name="reps{{i}}" required>
+    </div>
+    {% endfor %}
+    <input type="submit">
+</form>
+"""
+
+@app.route('/', methods=['GET'])
 def main():
-    return '''
-    <form action="/echo_user_input" method="POST">
-        <h2>Enter your exercise data:</h2>
-        <div>
-            <label for="exercise">Exercise:</label>
-            <input type="text" id="exercise" name="exercise">
-        </div>
-        <div>
-            <label for="weight">Weight (lbs):</label>
-            <input type="number" id="weight" name="weight" step="0.01">
-        </div>
-        <div>
-            <label for="reps">Reps:</label>
-            <input type="number" id="reps" name="reps">
-        </div>
-        <input type="submit" value="Submit!">
-    </form>
-    '''
+    # Render the form with 5 rows (or any other number you want)
+    return render_template_string(html_form, rows=5)
 
-@app.route("/echo_user_input", methods=["POST"])
-def echo_input():
-    exercise = request.form.get("exercise", "")
-    weight = request.form.get("weight", "")
-    reps = request.form.get("reps", "")
-    return f"You entered: Exercise: {exercise}, Weight: {weight} lbs, Reps: {reps}"
+@app.route('/submit', methods=['POST'])
+def submit():
+    # Extract the data for each exercise entry
+    exercises = []
+    for i in range(5):  # Assuming 5 rows as before
+        exercise = request.form.get(f'exercise{i}')
+        weight = request.form.get(f'weight{i}')
+        reps = request.form.get(f'reps{i}')
+        exercises.append(f'Exercise: {exercise}, Weight: {weight}, Reps: {reps}')
+    # Combine the data into a response
+    return '<br>'.join(exercises)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
