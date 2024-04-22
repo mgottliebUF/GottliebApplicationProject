@@ -22,7 +22,7 @@ keyring==23.5.0
 #lazr.restfulclient==0.14.4
 #lazr.uri==1.0.6
 more-itertools==8.10.0
-netifaces==0.11.0
+#netifaces==0.11.0
 numpy==1.26.4
 oauthlib==3.2.0
 packaging==24.0
@@ -34,11 +34,11 @@ pyrsistent==0.18.1
 python-dotenv==0.19.2
 #PyYAML==5.4.1
 requests==2.25.1
-SecretStorage==3.3.1
+#SecretStorage==3.3.1
 six==1.16.0
 #systemd-python==234
 texttable==1.6.4
-ubuntu-advantage-tools==8001
+#ubuntu-advantage-tools==8001
 ufw==0.36.1
 unattended-upgrades==0.1
 urllib3==1.26.5
