@@ -32,7 +32,7 @@ pyparsing==2.4.7
 pyrsistent==0.18.1
 #python-apt==2.4.0+ubuntu2
 python-dotenv==0.19.2
-PyYAML==5.4.1
+#PyYAML==5.4.1
 requests==2.25.1
 SecretStorage==3.3.1
 six==1.16.0
